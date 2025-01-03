@@ -1,7 +1,6 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
-// color design tokens export
 export const tokens = (mode) => ({
   ...(mode === "dark"
     ? {
@@ -32,7 +31,7 @@ export const tokens = (mode) => ({
           200: "#b7ebde",
           300: "#94e2cd",
           400: "#70d8bd",
-          500: "#4cceac",
+          500: "#EC8F38",
           600: "#3da58a",
           700: "#2e7c67",
           800: "#1e5245",
@@ -52,7 +51,7 @@ export const tokens = (mode) => ({
         blueAccent: {
           100: "#e1e2fe",
           200: "#c3c6fd",
-          300: "#a4a9fc",
+          300: "rgba(236, 143, 56, 20%)",
           400: "#868dfb",
           500: "#6870fa",
           600: "#535ac8",
@@ -77,7 +76,7 @@ export const tokens = (mode) => ({
           100: "#040509",
           200: "#080b12",
           300: "#0c101b",
-          400: "#f2f0f0", // manually changed
+          400: "#f2f0f0",
           500: "#141b2d",
           600: "#1F2A40",
           700: "#727681",
@@ -89,7 +88,7 @@ export const tokens = (mode) => ({
           200: "#1e5245",
           300: "#2e7c67",
           400: "#3da58a",
-          500: "#4cceac",
+          500: "#EC8F38",
           600: "#70d8bd",
           700: "#94e2cd",
           800: "#b7ebde",
@@ -113,14 +112,13 @@ export const tokens = (mode) => ({
           400: "#535ac8",
           500: "#6870fa",
           600: "#868dfb",
-          700: "#a4a9fc",
+          700: "rgba(236, 143, 56, 20%)",
           800: "#c3c6fd",
           900: "#e1e2fe",
         },
       }),
 });
 
-// mui theme settings
 export const themeSettings = (mode) => {
   const colors = tokens(mode);
   return {
@@ -128,7 +126,6 @@ export const themeSettings = (mode) => {
       mode: mode,
       ...(mode === "dark"
         ? {
-            // palette values for dark mode
             primary: {
               main: colors.primary[500],
             },
@@ -145,7 +142,6 @@ export const themeSettings = (mode) => {
             },
           }
         : {
-            // palette values for light mode
             primary: {
               main: colors.primary[100],
             },
@@ -193,13 +189,12 @@ export const themeSettings = (mode) => {
   };
 };
 
-// context for color mode
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
 
 export const useMode = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const colorMode = useMemo(
     () => ({

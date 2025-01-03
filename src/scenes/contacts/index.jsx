@@ -6,15 +6,12 @@ import { tokens } from "../../theme";
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  // Example notifications
   const [notifications, setNotifications] = useState([
     { id: 1, location: "New York", percentage: 75 },
     { id: 2, location: "San Francisco", percentage: 50 },
     { id: 3, location: "Los Angeles", percentage: 90 },
   ]);
 
-  // Remove a notification
   const handleRemoveNotification = (id) => {
     setNotifications((prevNotifications) =>
       prevNotifications.filter((notification) => notification.id !== id)
@@ -42,7 +39,7 @@ const Contacts = () => {
           justifyContent="space-between"
           p={2}
           borderRadius="8px"
-          bgcolor={colors.blueAccent[700]} // Retain individual notification background
+          bgcolor={colors.blueAccent[700]} 
         >
           <Typography color={colors.grey[100]}>
             {notification.location}: {notification.percentage}%

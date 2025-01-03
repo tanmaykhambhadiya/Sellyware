@@ -35,9 +35,8 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      // Send the RTSP data to Flask backend
       const response = await axios.post(
-        "http://127.0.0.1:5000/url",
+        "http://192.168.1.36:5000/url",
         {
           username: formData.username,
           password: formData.password,
@@ -48,12 +47,11 @@ const Form = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include JWT if authentication is required
+            Authorization: `Bearer ${localStorage.getItem("token")}`, 
           },
         }
       );
 
-      // Success response handling
       if (response.status === 200) {
         setGeneratedUrl(response.data.url);
         alert("RTSP URL generated and sent to backend successfully!");
@@ -138,7 +136,6 @@ const Form = () => {
             sx={{ gridColumn: "span 1" }}
           />
 
-          {/* Dropdown for Model Selection */}
           <TextField
             fullWidth
             variant="filled"
