@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://192.168.1.36:5000/login",
+        "http://192.168.1.36:5000/auth/login",
         formData
       );
       const { token, name, email } = response.data;

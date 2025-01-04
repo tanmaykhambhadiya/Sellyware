@@ -193,7 +193,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "@mui/system";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import logo from "../../assests/Logo PNG/02.png"
+import logo from "../../assests/Logo PNG/02.png";
 
 const Team = () => {
   const theme = useTheme();
@@ -210,9 +210,9 @@ const Team = () => {
   useEffect(() => {
     const fetchRTSPUrls = async () => {
       try {
-        const response = await fetch("http://192.168.1.36:5000/rtsp", {
+        const response = await fetch("http://192.168.1.36:5000/models/rtsp", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, 
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -238,6 +238,32 @@ const Team = () => {
 
     fetchRTSPUrls();
   }, []);
+
+  const eventSource = new EventSource(
+    "http://192.168.1.36:5000/models/person_count"
+  );
+
+  useEffect(() => {
+    // Set up the onmessage handler for SSE
+    eventSource.onmessage = (event) => {
+      console.log("Message from server:", event.data);
+
+      // Optionally, update state or UI with the received data
+      // For example:
+      // setPersonCount(event.data);
+    };
+
+    // Handle errors
+    eventSource.onerror = (error) => {
+      console.error("SSE connection error:", error);
+      // eventSource.close();
+    };
+
+    // Cleanup: Close the EventSource when the component unmounts
+    return () => {
+      // eventSource.close();
+    };
+  }, [eventSource]);
 
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => {
@@ -337,7 +363,7 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing Site Data" />
+      <Header title="Site Control" subtitle="Managing Site Data" />
 
       <Box display="flex" justifyContent="flex-end" mb={2}>
         <Button variant="contained" color="primary" onClick={handleOpenDialog}>
@@ -447,7 +473,8 @@ const Team = () => {
               <Card style={{ padding: "15px", border: "1px solid #020306" }}>
                 <Typography>
                   <strong>URL:</strong>
-                  <br /> <img src={logo} className="my-3" style={{width:"200px"}}/> 
+                  <br />{" "}
+                  <img src={logo} className="my-3" style={{ width: "200px" }} />
                   {/* {previewData.url} */}
                 </Typography>
                 <Typography>
@@ -459,9 +486,8 @@ const Team = () => {
             <Typography>Loading...</Typography>
           )}
         </DialogContent>
-        <DialogActions style={{paddingRight:"20px"}}>
+        <DialogActions style={{ paddingRight: "20px" }}>
           <Button
-
             onClick={handlePreviewDialogClose}
             variant="contained"
             color="secondary"

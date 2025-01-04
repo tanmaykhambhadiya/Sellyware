@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  TextField,
-  useTheme,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios"; // Import Axios for backend communication
 import Header from "../../components/Header";
@@ -36,7 +31,7 @@ const Form = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.36:5000/url",
+        "http://192.168.1.36:5000/models/url",
         {
           username: formData.username,
           password: formData.password,
@@ -47,7 +42,7 @@ const Form = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, 
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -149,7 +144,7 @@ const Form = () => {
             }}
             sx={{ gridColumn: "span 2" }}
           >
-            <option value="yolo11n.pt">person count</option>
+            <option value="person_count">person count</option>
             <option value="other_model.pt">Other Model</option>
           </TextField>
         </Box>
